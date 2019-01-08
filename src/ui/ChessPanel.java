@@ -11,14 +11,17 @@ import java.util.HashMap;
 
 public class ChessPanel extends JPanel {
     private static final int SQUARE_WIDTH = 60;
+    private static final int BORDER_WIDTH = 60;
     private Chessboard board;
-    private BufferedImage boardImg;
+    private BufferedImage boardImgWhite;
+    private BufferedImage boardImgBlack;
     private String turnColour;
     private HashMap<String, BufferedImage> pieceImgs = new HashMap<>();
 
 
     //EFFECTS: draws the Chess Pieces onto to the panel
-    public ChessPanel(Chessboard board, String turnColour, BufferedImage boardImg, BufferedImage wKing,
+    public ChessPanel(Chessboard board, String turnColour, BufferedImage boardImgWhite,
+                      BufferedImage boardImgBlack, BufferedImage wKing,
                       BufferedImage bKing, BufferedImage wQueen, BufferedImage bQueen,
                       BufferedImage wKnight, BufferedImage bKnight, BufferedImage wRook,
                       BufferedImage bRook, BufferedImage wPawn, BufferedImage bPawn,
@@ -27,7 +30,8 @@ public class ChessPanel extends JPanel {
         super();
         this.board = board;
         this.turnColour = turnColour;
-        this.boardImg = boardImg;
+        this.boardImgWhite = boardImgWhite;
+        this.boardImgBlack = boardImgBlack;
         pieceImgs.put("K+", wKing);
         pieceImgs.put("K-", bKing);
         pieceImgs.put("Q+", wQueen);
@@ -40,7 +44,7 @@ public class ChessPanel extends JPanel {
         pieceImgs.put("B-", bBishop);
         pieceImgs.put("P+", wPawn);
         pieceImgs.put("P-", bPawn);
-        setPreferredSize(new Dimension(SQUARE_WIDTH * 8,SQUARE_WIDTH * 8));
+        setPreferredSize(new Dimension(boardImgWhite.getWidth(),boardImgWhite.getHeight()));
     }
 
     // MODIFIES: g
@@ -55,9 +59,14 @@ public class ChessPanel extends JPanel {
     // MODIFIES: g
     // EFFECTS: draws the empty board onto g
     private void drawBoard(Graphics g) {
-        int x = (getWidth()- boardImg.getWidth()) / 2;
-        int y = (getHeight() - boardImg.getHeight()) / 2;
-        g.drawImage(boardImg, x , y, this);
+        int x = (getWidth()- boardImgWhite.getWidth()) / 2;
+        int y = (getHeight() - boardImgWhite.getHeight()) / 2;
+
+        if (turnColour.equals("white")) {
+            g.drawImage(boardImgWhite, x , y, this);
+        } else {
+            g.drawImage(boardImgBlack, x , y, this);
+        }
     }
 
     // MODIFIES: this
@@ -82,12 +91,12 @@ public class ChessPanel extends JPanel {
                 ChessPiece currentSquare = board.board[r][c];
                 if (!(currentSquare.getIcon().equals("[]"))) {
                     if (turnColour.equals("black")) {
-                        int x = (getWidth()- boardImg.getWidth()) / 2 + SQUARE_WIDTH * c;
-                        int y = (getHeight() - boardImg.getHeight()) / 2 + SQUARE_WIDTH * r;
+                        int x = (getWidth()- boardImgWhite.getWidth()) / 2 + SQUARE_WIDTH * c + BORDER_WIDTH;
+                        int y = (getHeight() - boardImgWhite.getHeight()) / 2 + SQUARE_WIDTH * r + BORDER_WIDTH;
                         g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
                     } else {
-                        int x = (getWidth()- boardImg.getWidth()) / 2 + SQUARE_WIDTH * (7 - c);
-                        int y = (getHeight() - boardImg.getHeight()) / 2 + SQUARE_WIDTH * (7 - r);
+                        int x = (getWidth()- boardImgBlack.getWidth()) / 2 + SQUARE_WIDTH * (7 - c) + BORDER_WIDTH;
+                        int y = (getHeight() - boardImgBlack.getHeight()) / 2 + SQUARE_WIDTH * (7 - r)+ BORDER_WIDTH;
                         g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
                     }
 

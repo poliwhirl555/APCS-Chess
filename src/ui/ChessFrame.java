@@ -16,7 +16,8 @@ public class ChessFrame extends JFrame {
     private ChessPanel chessPanel;
     private Chessboard board;
     private String turnColour;
-    private BufferedImage boardImg;
+    private BufferedImage boardImgWhite;
+    private BufferedImage boardImgBlack;
     private BufferedImage wKing;
     private BufferedImage bKing;
     private BufferedImage wQueen;
@@ -54,7 +55,8 @@ public class ChessFrame extends JFrame {
     // EFFECTS: adds components to frame
     private void addComponents() {
         JPanel container = new JPanel();
-        chessPanel = new ChessPanel(board, turnColour, boardImg, wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
+        chessPanel = new ChessPanel(board, turnColour, boardImgWhite, boardImgBlack,
+                wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
                 wPawn, bPawn, wBishop, bBishop);
         container.add(chessPanel);
         add(container);
@@ -63,7 +65,8 @@ public class ChessFrame extends JFrame {
     // MODIFIES: this
     // EFFECTS: loads images for the chess pieces plus the board
     private void loadImages() throws IOException {
-        boardImg = ImageIO.read(new File("assets/board2.png"));
+        boardImgWhite = ImageIO.read(new File("assets/board-white.png"));
+        boardImgBlack = ImageIO.read(new File("assets/board-black.png"));
         wKing = ImageIO.read(new File("assets/wKing.png"));
         bKing = ImageIO.read(new File("assets/bKing.png"));
         wQueen = ImageIO.read(new File("assets/wQueen.png"));
