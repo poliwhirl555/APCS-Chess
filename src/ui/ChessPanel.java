@@ -13,11 +13,12 @@ public class ChessPanel extends JPanel {
     private static final int SQUARE_WIDTH = 60;
     private Chessboard board;
     private BufferedImage boardImg;
+    private String turnColour;
     private HashMap<String, BufferedImage> pieceImgs = new HashMap<>();
 
 
     //EFFECTS: draws the Chess Pieces onto to the panel
-    public ChessPanel(Chessboard board, BufferedImage boardImg, BufferedImage wKing,
+    public ChessPanel(Chessboard board, String turnColour, BufferedImage boardImg, BufferedImage wKing,
                       BufferedImage bKing, BufferedImage wQueen, BufferedImage bQueen,
                       BufferedImage wKnight, BufferedImage bKnight, BufferedImage wRook,
                       BufferedImage bRook, BufferedImage wPawn, BufferedImage bPawn,
@@ -25,6 +26,7 @@ public class ChessPanel extends JPanel {
                       BufferedImage bBishop) {
         super();
         this.board = board;
+        this.turnColour = turnColour;
         this.boardImg = boardImg;
         pieceImgs.put("K+", wKing);
         pieceImgs.put("K-", bKing);
@@ -60,8 +62,12 @@ public class ChessPanel extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: updates the panel's internal chessboard to match current board
-    private void updateInternalBoard(Chessboard b) {
+    public void updateInternalBoard(Chessboard b) {
         this.board = b;
+    }
+
+    public void updateTurnColour(String turnColour) {
+        this.turnColour = turnColour;
     }
 
     // MODIFIES: g
@@ -71,9 +77,16 @@ public class ChessPanel extends JPanel {
             for (int c = 0; c < 8; c++) {
                 ChessPiece currentSquare = board.board[r][c];
                 if (!(currentSquare.getIcon().equals("[]"))) {
-                    int x = (getWidth()- boardImg.getWidth()) / 2 + SQUARE_WIDTH * c;
-                    int y = (getHeight() - boardImg.getHeight()) / 2 + SQUARE_WIDTH * r;
-                    g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
+                    if (turnColour.equals("black")) {
+                        int x = (getWidth()- boardImg.getWidth()) / 2 + SQUARE_WIDTH * c;
+                        int y = (getHeight() - boardImg.getHeight()) / 2 + SQUARE_WIDTH * r;
+                        g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
+                    } else {
+                        int x = (getWidth()- boardImg.getWidth()) / 2 + SQUARE_WIDTH * (7 - c);
+                        int y = (getHeight() - boardImg.getHeight()) / 2 + SQUARE_WIDTH * (7 - r);
+                        g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
+                    }
+
                 }
             }
         }

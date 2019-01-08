@@ -4,12 +4,13 @@ import GameSet.Bishop;
 
 public class Chessboard {
     public ChessPiece[][] board = new ChessPiece[8][8];
+
     //Make private later
 
     public Chessboard() {
         ChessPiece[][] defaultBoard = {
                 {new Rook("white"), new Knight("white"), new Bishop("white"),
-                        new Queen("white"), new King("white"), new Bishop("white"), new Knight("white"),
+                        new King("white"), new Queen("white"), new Bishop("white"), new Knight("white"),
                         new Rook("white")},
 
                 {new Pawn("white"), new Pawn("white"), new Pawn("white"),  new Pawn("white"),
@@ -31,7 +32,7 @@ public class Chessboard {
                         new Pawn("black"), new Pawn("black"), new Pawn("black"), new Pawn("black")},
 
                 {new Rook("black"), new Knight("black"), new Bishop("black"),
-                        new Queen("black"), new King("black"), new Bishop("black"), new Knight("black"),
+                        new King("black"), new Queen("black"), new Bishop("black"), new Knight("black"),
                         new Rook("black")},
         };
 
