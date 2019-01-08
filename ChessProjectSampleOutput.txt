@@ -1,0 +1,345 @@
+1 - Variety of Movements for Every Piece Except Pawns
+Welcome to my Chess game, please enter your moves in this format: [Location of piece you want to move] [Location where you want to move the piece to]
+For example: a2 a3
+This will move the piece in a2 to a3, assuming that position is a valid position for that piece to move
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=3], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+R- N- B- Q- K- B- N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+R+ N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+a1 a5
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+R+ N+ B+ K+ Q+ B+ N+ [] 1
+[] [] [] [] [] [] [] [] 2
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] R+ 5
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- B- K- Q- B- N- R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+b8 c6
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+R- [] B- Q- K- B- N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] N- [] [] [] [] [] 6
+R+ [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+[] N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+a5 h5
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+R+ N+ B+ K+ Q+ B+ N+ [] 1
+[] [] [] [] [] [] [] [] 2
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+R+ [] [] [] [] [] [] [] 5
+[] [] [] [] [] N- [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- B- K- Q- B- [] R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+f8 d6
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+R- [] B- Q- K- [] N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] N- B- [] [] [] [] 6
+[] [] [] [] [] [] [] R+ 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+[] N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+d1 d3
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+R+ N+ B+ K+ [] B+ N+ [] 1
+[] [] [] [] [] [] [] [] 2
+[] [] [] [] Q+ [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+R+ [] [] [] [] [] [] [] 5
+[] [] [] [] B- N- [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- [] K- Q- B- [] R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+d6 h1
+Invalid move, please try again!
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+d6 c5
+testLine
+[java.awt.Point[x=1,y=5], java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+true
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+R- [] B- Q- K- [] N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] N- [] [] [] [] [] 6
+[] [] B- [] [] [] [] R+ 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] Q+ [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+[] N+ B+ [] K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5], java.awt.Point[x=6,y=4]]
+Please enter your move: 
+d3 d8
+testLine
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+true
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+R+ N+ B+ K+ [] B+ N+ [] 1
+[] [] [] [] [] [] [] [] 2
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+R+ [] [] [] [] B- [] [] 5
+[] [] [] [] [] N- [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- [] K- Q+ B- [] R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+Please enter your move: 
+c5 g1
+testLine
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+true
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+R- [] B- Q+ K- [] N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] N- [] [] [] [] [] 6
+[] [] [] [] [] [] [] R+ 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+[] N+ B+ [] K+ B+ B- R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+Please enter your move: 
+b1 c3
+testLine
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+true
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+R+ B- B+ K+ [] B+ [] [] 1
+[] [] [] [] [] [] [] [] 2
+[] [] [] [] [] N+ [] [] 3
+[] [] [] [] [] [] [] [] 4
+R+ [] [] [] [] [] [] [] 5
+[] [] [] [] [] N- [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- [] K- Q+ B- [] R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+Please enter your move: 
+c6 e5
+testLine
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+true
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+R- [] B- Q+ K- [] N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] N- [] [] R+ 5
+[] [] [] [] [] [] [] [] 4
+[] [] N+ [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 2
+[] [] B+ [] K+ B+ B- R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=1,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+Please enter your move: 
+e1 e2
+testLine
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+true
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+R+ B- B+ [] [] B+ [] [] 1
+[] [] [] K+ [] [] [] [] 2
+[] [] [] [] [] N+ [] [] 3
+[] [] [] [] [] [] [] [] 4
+R+ [] [] N- [] [] [] [] 5
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] [] [] [] [] 7
+R- N- [] K- Q+ B- [] R- 8
+h  g  f  e  d  c  b  a
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=5], java.awt.Point[x=7,y=5]]
+Please enter your move: 
+e8 f8
+testLine
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=6], java.awt.Point[x=6,y=5]]
+true
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=6], java.awt.Point[x=6,y=5]]
+R- [] B- Q+ [] K- N- R- 8
+[] [] [] [] [] [] [] [] 7
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] N- [] [] R+ 5
+[] [] [] [] [] [] [] [] 4
+[] [] N+ [] [] [] [] [] 3
+[] [] [] [] K+ [] [] [] 2
+[] [] B+ [] [] B+ B- R+ 1
+a  b  c  d  e  f  g  h
+[java.awt.Point[x=0,y=4]]
+[java.awt.Point[x=6,y=6], java.awt.Point[x=6,y=5]]
+Please enter your move: 
+
+2 - Testing the Movement of Pawns, the ability to move two ranks on first move, and the ability to take other pieces using Pawns
+
+Welcome to my Chess game, please enter your moves in this format: [Location of piece you want to move] [Location where you want to move the piece to]
+For example: a2 a3
+This will move the piece in a2 to a3, assuming that position is a valid position for that piece to move
+R- N- B- Q- K- B- N- R- 8
+P- P- P- P- P- P- P- P- 7
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+P+ P+ P+ P+ P+ P+ P+ P+ 2
+R+ N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+Please enter your move: 
+a2 a4
+testLine
+R+ N+ B+ K+ Q+ B+ N+ R+ 1
+P+ P+ P+ P+ P+ P+ P+ [] 2
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] P+ 4
+[] [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 6
+P- P- P- P- P- P- P- P- 7
+R- N- B- K- Q- B- N- R- 8
+h  g  f  e  d  c  b  a
+Please enter your move: 
+b7 b5
+testLine
+R- N- B- Q- K- B- N- R- 8
+P- [] P- P- P- P- P- P- 7
+[] [] [] [] [] [] [] [] 6
+[] P- [] [] [] [] [] [] 5
+P+ [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+[] P+ P+ P+ P+ P+ P+ P+ 2
+R+ N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+Please enter your move: 
+a4 b5
+testLine
+R+ N+ B+ K+ Q+ B+ N+ R+ 1
+P+ P+ P+ P+ P+ P+ P+ [] 2
+[] [] [] [] [] [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] P+ [] 5
+[] [] [] [] [] [] [] [] 6
+P- P- P- P- P- P- [] P- 7
+R- N- B- K- Q- B- N- R- 8
+h  g  f  e  d  c  b  a
+Please enter your move: 
+
+3 - Variety of Invalid Inputs
+Welcome to my Chess game, please enter your moves in this format: [Location of piece you want to move] [Location where you want to move the piece to]
+For example: a2 a3
+This will move the piece in a2 to a3, assuming that position is a valid position for that piece to move
+R- N- B- Q- K- B- N- R- 8
+P- P- P- P- P- P- P- P- 7
+[] [] [] [] [] [] [] [] 6
+[] [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 3
+P+ P+ P+ P+ P+ P+ P+ P+ 2
+R+ N+ B+ Q+ K+ B+ N+ R+ 1
+a  b  c  d  e  f  g  h
+Please enter your move: 
+g9 
+Invalid Entry
+Please enter your move: 
+g9 u6
+Invalid Entry
+Please enter your move: 
+d1 d2
+Invalid Piece, has no valid moves.
+Please enter your move: 
+d2 d3
+testLine
+R+ N+ B+ K+ Q+ B+ N+ R+ 1
+P+ P+ P+ P+ [] P+ P+ P+ 2
+[] [] [] [] P+ [] [] [] 3
+[] [] [] [] [] [] [] [] 4
+[] [] [] [] [] [] [] [] 5
+[] [] [] [] [] [] [] [] 6
+P- P- P- P- P- P- P- P- 7
+R- N- B- K- Q- B- N- R- 8
+h  g  f  e  d  c  b  a
+Please enter your move: 
+h8 h9
+Invalid Piece, has no valid moves.
+Please enter your move: 
