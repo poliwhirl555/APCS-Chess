@@ -55,7 +55,7 @@ public class ChessFrame extends JFrame {
     private void addComponents() {
         JPanel container = new JPanel();
         chessPanel = new ChessPanel(board, turnColour, boardImg, wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
-                wPawn, bPawn,wBishop, bBishop);
+                wPawn, bPawn, wBishop, bBishop);
         container.add(chessPanel);
         add(container);
     }
@@ -82,6 +82,10 @@ public class ChessFrame extends JFrame {
         this.chessPanel.updateInternalBoard(b);
         this.chessPanel.updateTurnColour(turnColour);
 
+    }
+
+    public String getPanelTurnColour() {
+        return this.chessPanel.getTurnColour();
     }
 
     public static void main(String[] args) {
@@ -124,10 +128,10 @@ public class ChessFrame extends JFrame {
 
 
 
-                if (currentColour.equals("white")) {
-                    mainBoard.drawBoardWhiteSide();
+                if (mainFrame.getPanelTurnColour().equals("white")) {
+                    mainFrame.repaint();
                 } else {
-                    mainBoard.drawBoardBlackSide();
+                    mainFrame.repaint();
                 }
 
                 String endLocation;
@@ -187,9 +191,11 @@ public class ChessFrame extends JFrame {
                 //System.out.println("testLine");
 
                 //Keeps track of which colour the current turn is, so that the board is printed correctly, and so that you cannot move the opponenent's pieces
-                if (currentColour.equals("white")) {
+                if (mainFrame.getPanelTurnColour().equals("white")) {
+                    mainFrame.updateChessPanel("black", mainBoard);
                     currentColour = "black";
                 } else {
+                    mainFrame.updateChessPanel("white", mainBoard);
                     currentColour = "white";
                 }
 

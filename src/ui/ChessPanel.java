@@ -70,6 +70,10 @@ public class ChessPanel extends JPanel {
         this.turnColour = turnColour;
     }
 
+    public String getTurnColour() {
+        return this.turnColour;
+    }
+
     // MODIFIES: g
     // EFFECTS: draws all the pieces from this.board onto g
     private void updatePieces(Graphics g) {
