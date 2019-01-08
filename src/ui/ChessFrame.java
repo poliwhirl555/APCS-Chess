@@ -57,7 +57,7 @@ public class ChessFrame extends JFrame {
     // MODIFIES: this
     // EFFECTS: loads images for the chess pieces plus the board
     private void loadImages() throws IOException {
-        boardImg = ImageIO.read(new File("assets/board.png"));
+        boardImg = ImageIO.read(new File("assets/board2.png"));
         wKing = ImageIO.read(new File("assets/wKing.png"));
         bKing = ImageIO.read(new File("assets/bKing.png"));
         wQueen = ImageIO.read(new File("assets/wQueen.png"));
