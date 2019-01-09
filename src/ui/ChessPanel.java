@@ -2,6 +2,7 @@ package ui;
 
 import GameSet.ChessPiece;
 import GameSet.Chessboard;
+import GameSet.King;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,8 @@ public class ChessPanel extends JPanel {
     private static final int SQUARE_WIDTH = 60;
     private static final int BORDER_WIDTH = 60;
     private Chessboard board;
+    private ChessPiece whiteKing;
+    private ChessPiece blackKing;
     private BufferedImage boardImgWhite;
     private BufferedImage boardImgBlack;
     private String turnColour;
@@ -29,6 +32,7 @@ public class ChessPanel extends JPanel {
                       BufferedImage bBishop) {
         super();
         this.board = board;
+        setKingPositions();
         this.turnColour = turnColour;
         this.boardImgWhite = boardImgWhite;
         this.boardImgBlack = boardImgBlack;
@@ -81,6 +85,18 @@ public class ChessPanel extends JPanel {
 
     public String getTurnColour() {
         return this.turnColour;
+    }
+
+    private void setKingPositions() {
+        whiteKing = board.board[0][3];
+        blackKing = board.board[7][3];
+    }
+
+    private boolean isCheckmate() {
+        ((King) whiteKing).getAllOppositeAttackablePositions(board);
+        ((King) blackKing).getAllOppositeAttackablePositions(board);
+        return !((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate();
+
     }
 
     // MODIFIES: g

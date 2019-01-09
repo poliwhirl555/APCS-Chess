@@ -98,7 +98,6 @@ public class ChessFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String entry = inputLine.getText();
                 if (conductMove(entry)) {
-                    //consoleMirror.append(entry + "\n");
                     System.out.println(entry);
                     inputLine.setText("");
                     System.out.println("Please enter your move: ");
@@ -218,19 +217,19 @@ public class ChessFrame extends JFrame {
             Chessboard mainBoard = new Chessboard();
             ChessFrame mainFrame = new ChessFrame(mainBoard);
 
-            ChessPiece whiteKing = mainBoard.board[0][3];
-            ChessPiece blackKing = mainBoard.board[7][3];
-            for (ChessPiece[] row : mainBoard.board) {
-                for (ChessPiece i : row) {
-                    if (i instanceof King) {
-                        if (i.getColour().equals("white")) {
-                            whiteKing = i;
-                        } else if (i.getColour().equals("black")) {
-                            blackKing = i;
-                        }
-                    }
-                }
-            }
+//            ChessPiece whiteKing = mainBoard.board[0][3];
+//            ChessPiece blackKing = mainBoard.board[7][3];
+//            for (ChessPiece[] row : mainBoard.board) {
+//                for (ChessPiece i : row) {
+//                    if (i instanceof King) {
+//                        if (i.getColour().equals("white")) {
+//                            whiteKing = i;
+//                        } else if (i.getColour().equals("black")) {
+//                            blackKing = i;
+//                        }
+//                    }
+//                }
+//            }
 
             System.out.println("Welcome to my Chess game, please enter your moves in this format: \n " +
                     "[Location of piece you want to move] [Location where you want to move the piece to]");
@@ -244,8 +243,8 @@ public class ChessFrame extends JFrame {
 
                 mainBoard.checkPossibleMoves();
                 //System.out.println("J");
-                ((King) whiteKing).getAllOppositeAttackablePositions(mainBoard);
-                ((King) blackKing).getAllOppositeAttackablePositions(mainBoard);
+//                ((King) whiteKing).getAllOppositeAttackablePositions(mainBoard);
+//                ((King) blackKing).getAllOppositeAttackablePositions(mainBoard);
                 //System.out.println("I :" + ((GameSet.King) blackKing).allOppositeAttackablePositions);
                 //System.out.println(((GameSet.King) blackKing).allOppositeAttackablePositions.contains(new Point(4,6)));
 
