@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,9 @@ import java.util.Scanner;
 public class ChessFrame extends JFrame {
     private ChessPanel chessPanel;
     private Chessboard board;
+    private JTextField inputLine;
+    private JScrollPane consoleMirrorScroll;
+    private JTextArea consoleMirror;
     private String turnColour;
     private BufferedImage boardImgWhite;
     private BufferedImage boardImgBlack;
@@ -61,22 +66,54 @@ public class ChessFrame extends JFrame {
         chessPanel = new ChessPanel(board, turnColour, boardImgWhite, boardImgBlack,
                 wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
                 wPawn, bPawn, wBishop, bBishop);
-        // Console Redirect
-        JTextArea consoleMirror = new JTextArea(7, 45);
+        consoleMirror = initConsoleMirror();
+        consoleMirrorScroll = new JScrollPane(consoleMirror);
+        inputLine = initInputLine();
+        container.setLayout(new BoxLayout(container,BoxLayout.PAGE_AXIS));
+        container.add(chessPanel);
+        container.add(Box.createRigidArea(new Dimension(560, 5)));
+        container.add(consoleMirrorScroll);
+        container.add(inputLine);
+        add(container);
+    }
+
+
+    // EFFECTS: initialized the console redirect and returns it.
+    private JTextArea initConsoleMirror() {
+        JTextArea consoleMirror = new JTextArea(10, 50);
         consoleMirror.setEditable(false);
         //consoleMirror.setLineWrap(true);
-        consoleMirror.setWrapStyleWord(true);
+        //consoleMirror.setWrapStyleWord(true);
         consoleMirror.setFont(new Font("Calibri", Font.PLAIN, 20));
         PrintStream redirect = new PrintStream(new TextOutputStream(consoleMirror));
         System.setOut(redirect);
         System.setErr(redirect);
-
-        container.setLayout(new BoxLayout(container,BoxLayout.PAGE_AXIS));
-        container.add(chessPanel);
-        container.add(Box.createRigidArea(new Dimension(560, 5)));
-        container.add(consoleMirror);
-        add(container);
+        return consoleMirror;
     }
+
+    private JTextField initInputLine() {
+        JTextField inputLine = new JTextField(45);
+        inputLine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String entry = inputLine.getText();
+                if (conductMove(entry)) {
+                    //consoleMirror.append(entry + "\n");
+                    System.out.println(entry);
+                    inputLine.setText("");
+                    System.out.println("Please enter your move: ");
+                }
+                board.checkPossibleMoves();
+                repaint();
+                pack();
+            }
+
+        });
+
+        return inputLine;
+    }
+
+
 
     // MODIFIES: this
     // EFFECTS: loads images for the chess pieces plus the board
@@ -97,6 +134,17 @@ public class ChessFrame extends JFrame {
         bBishop = ImageIO.read(new File("assets/bBishop.png"));
     }
 
+    private void changeTurnColour() {
+        if (getPanelTurnColour().equals("white")) {
+            updateChessPanel("black", this.board);
+            turnColour = "black";
+        } else {
+            updateChessPanel("white", this.board);
+            turnColour = "white";
+        }
+    }
+
+
     public void updateChessPanel(String turnColour, Chessboard b) {
         this.chessPanel.updateInternalBoard(b);
         this.chessPanel.updateTurnColour(turnColour);
@@ -106,6 +154,64 @@ public class ChessFrame extends JFrame {
     public String getPanelTurnColour() {
         return this.chessPanel.getTurnColour();
     }
+
+
+    public boolean conductMove(String entry) {
+        String endLocation;
+        String pieceMoved;
+        int pieceRow;
+        int pieceCol;
+
+
+        pieceMoved = entry.substring(0, entry.indexOf(" "));
+        //System.out.println(pieceMoved); //Test Line
+        //System.out.println(Character.getNumericValue('a')); //Test Line
+        endLocation = entry.substring(entry.indexOf(" ") + 1);
+        pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
+        pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
+
+
+        if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
+
+            if (board.board[pieceRow][pieceCol] instanceof EmptySquare) {
+                System.out.println("Invalid Selection, square is empty.");
+                return false;
+            }
+
+            if (!board.board[pieceRow][pieceCol].getColour().equals(turnColour)) {
+                System.out.println("Invalid selection, that piece is your opponent's colour.");
+                return false;
+            }
+
+            if (!board.board[pieceRow][pieceCol].validMoves.isEmpty() && board.board[pieceRow][pieceCol].getColour().equals(turnColour)) {
+                //Test Line
+                //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
+                //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+                //
+                if(board.board[pieceRow][pieceCol].move(endLocation,board)) {
+                    changeTurnColour();
+                    return true;
+                }
+
+                return false;
+                //System.out.println("confirm"); // Test Line
+
+            } else if (board.board[pieceRow][pieceCol].validMoves.isEmpty() && board.board[pieceRow][pieceCol].getColour().equals(turnColour)){
+                //Test Line
+                //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
+                //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+                System.out.println("Invalid Piece, has no valid moves.");
+                return false;
+            }
+
+        } else {
+            System.out.println("Invalid Entry");
+            return false;
+        }
+
+        return false;
+    }
+
 
     public static void main(String[] args) {
         try {
@@ -126,8 +232,6 @@ public class ChessFrame extends JFrame {
                 }
             }
 
-            Scanner input = new Scanner(System.in);
-            String currentColour = "white";
             System.out.println("Welcome to my Chess game, please enter your moves in this format: \n " +
                     "[Location of piece you want to move] [Location where you want to move the piece to]");
             System.out.println("For example: a2 a3");
@@ -135,7 +239,7 @@ public class ChessFrame extends JFrame {
                     " (Assuming that position is a valid position for that piece to move.)");
 
             //mainBoard.setUpSampleBoard(); //TestCode
-            while (!((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate()) {
+            //while (!((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate()) {
 
 
                 mainBoard.checkPossibleMoves();
@@ -149,79 +253,96 @@ public class ChessFrame extends JFrame {
 
 
 
-                if (mainFrame.getPanelTurnColour().equals("white")) {
-                    mainFrame.repaint();
-                } else {
-                    mainFrame.repaint();
-                }
+//                if (mainFrame.getPanelTurnColour().equals("white")) {
+//                    mainFrame.repaint();
+//                } else {
+//                    mainFrame.repaint();
+//                }
 
-                String endLocation;
-                String pieceMoved;
-                int pieceRow;
-                int pieceCol;
+//                String endLocation;
+//                String pieceMoved;
+//                int pieceRow;
+//                int pieceCol;
 
                 //The only possible way to break this loop is to enter a valid position
-                while(true){
+                //while(true){
                     mainBoard.checkPossibleMoves();
                     System.out.println("Please enter your move: ");
-                    String entry = input.nextLine();
-                    pieceMoved = entry.substring(0, entry.indexOf(" "));
-                    //System.out.println(pieceMoved); //Test Line
-                    //System.out.println(Character.getNumericValue('a')); //Test Line
-                    endLocation = entry.substring(entry.indexOf(" ") + 1);
-                    pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
-                    pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
+//                    inputLine.addActionListener(new ActionListener() {
+//                        @Override
+//                        public void actionPerformed(ActionEvent e) {
+//                            String entry = inputLine.getText();
+//                            if (mainFrame.conductMove(entry)) {
+//                                //consoleMirror.append(entry + "\n");
+//                                System.out.println(entry);
+//                                inputLine.setText("");
+//                                System.out.println("Please enter your move: ");
+//                            }
+//                            mainBoard.checkPossibleMoves();
+//                            mainFrame.repaint();
+//                            mainFrame.pack();
+//                        }
+//
+//                    });
+
+                    //String entry = input.nextLine();
+//                    pieceMoved = entry.substring(0, entry.indexOf(" "));
+//                    //System.out.println(pieceMoved); //Test Line
+//                    //System.out.println(Character.getNumericValue('a')); //Test Line
+//                    endLocation = entry.substring(entry.indexOf(" ") + 1);
+//                    pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
+//                    pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
                     //Test Line
                     //System.out.println("T " + mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
                     //System.out.println("T " + mainBoard.board[pieceRow][pieceCol].validMoves);
                     //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard).isEmpty());
 
 
-                    if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
-
-                        if (mainBoard.board[pieceRow][pieceCol] instanceof EmptySquare) {
-                            System.out.println("Invalid Selection, square is empty.");
-                        }
-
-                        if (!mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
-                            System.out.println("Invalid selection, that piece is your opponent's colour.");
-                        }
-
-                        if (!mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
-                            //Test Line
-                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
-                            //
-                            if(mainBoard.board[pieceRow][pieceCol].move(endLocation,mainBoard)) {
-                                break;
-                            }
-                            //System.out.println("confirm"); // Test Line
-
-                        } else if (mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)){
-                            //Test Line
-                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
-                            System.out.println("Invalid Piece, has no valid moves.");
-                        }
-
-                    } else {
-                        System.out.println("Invalid Entry");
-                    }
-                }
+//                    if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
+//
+//                        if (mainBoard.board[pieceRow][pieceCol] instanceof EmptySquare) {
+//                            System.out.println("Invalid Selection, square is empty.");
+//                        }
+//
+//                        if (!mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
+//                            System.out.println("Invalid selection, that piece is your opponent's colour.");
+//                        }
+//
+//                        if (!mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
+//                            //Test Line
+//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
+//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+//                            //
+//                            if(mainBoard.board[pieceRow][pieceCol].move(endLocation,mainBoard)) {
+//                                break;
+//                            }
+//                            //System.out.println("confirm"); // Test Line
+//
+//                        } else if (mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)){
+//                            //Test Line
+//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
+//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+//                            System.out.println("Invalid Piece, has no valid moves.");
+//                        }
+//
+//                    } else {
+//                        System.out.println("Invalid Entry");
+//                    }
+                //}
 
                 //System.out.println("testLine");
 
                 //Keeps track of which colour the current turn is, so that the board is printed correctly, and so that you cannot move the opponenent's pieces
-                if (mainFrame.getPanelTurnColour().equals("white")) {
-                    mainFrame.updateChessPanel("black", mainBoard);
-                    currentColour = "black";
-                } else {
-                    mainFrame.updateChessPanel("white", mainBoard);
-                    currentColour = "white";
-                }
+//                if (mainFrame.getPanelTurnColour().equals("white")) {
+//                    mainFrame.updateChessPanel("black", mainBoard);
+//                    currentColour = "black";
+//                } else {
+//                    mainFrame.updateChessPanel("white", mainBoard);
+//                    currentColour = "white";
+//                }
 
 
-            }
+            //}
 
 
         } catch (IOException e) {

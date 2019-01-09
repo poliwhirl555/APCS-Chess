@@ -91,11 +91,11 @@ public class ChessPanel extends JPanel {
                 ChessPiece currentSquare = board.board[r][c];
                 if (!(currentSquare.getIcon().equals("[]"))) {
                     if (turnColour.equals("black")) {
-                        int x = (getWidth()- boardImgWhite.getWidth()) / 2 + SQUARE_WIDTH * c + BORDER_WIDTH;
+                        int x = (getWidth()- boardImgWhite.getWidth()) / 2 + SQUARE_WIDTH * (7 - c) + BORDER_WIDTH;
                         int y = (getHeight() - boardImgWhite.getHeight()) / 2 + SQUARE_WIDTH * r + BORDER_WIDTH;
                         g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
                     } else {
-                        int x = (getWidth()- boardImgBlack.getWidth()) / 2 + SQUARE_WIDTH * (7 - c) + BORDER_WIDTH;
+                        int x = (getWidth()- boardImgBlack.getWidth()) / 2 + SQUARE_WIDTH * c + BORDER_WIDTH;
                         int y = (getHeight() - boardImgBlack.getHeight()) / 2 + SQUARE_WIDTH * (7 - r)+ BORDER_WIDTH;
                         g.drawImage(pieceImgs.get(currentSquare.getIcon()), x, y, this);
                     }
