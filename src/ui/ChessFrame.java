@@ -7,9 +7,12 @@ import GameSet.King;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ChessFrame extends JFrame {
@@ -58,7 +61,20 @@ public class ChessFrame extends JFrame {
         chessPanel = new ChessPanel(board, turnColour, boardImgWhite, boardImgBlack,
                 wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
                 wPawn, bPawn, wBishop, bBishop);
+        // Console Redirect
+        JTextArea consoleMirror = new JTextArea(7, 45);
+        consoleMirror.setEditable(false);
+        //consoleMirror.setLineWrap(true);
+        consoleMirror.setWrapStyleWord(true);
+        consoleMirror.setFont(new Font("Calibri", Font.PLAIN, 20));
+        PrintStream redirect = new PrintStream(new TextOutputStream(consoleMirror));
+        System.setOut(redirect);
+        System.setErr(redirect);
+
+        container.setLayout(new BoxLayout(container,BoxLayout.PAGE_AXIS));
         container.add(chessPanel);
+        container.add(Box.createRigidArea(new Dimension(560, 5)));
+        container.add(consoleMirror);
         add(container);
     }
 
@@ -112,9 +128,11 @@ public class ChessFrame extends JFrame {
 
             Scanner input = new Scanner(System.in);
             String currentColour = "white";
-            System.out.println("Welcome to my Chess game, please enter your moves in this format: [Location of piece you want to move] [Location where you want to move the piece to]");
+            System.out.println("Welcome to my Chess game, please enter your moves in this format: \n " +
+                    "[Location of piece you want to move] [Location where you want to move the piece to]");
             System.out.println("For example: a2 a3");
-            System.out.println("This will move the piece in a2 to a3, assuming that position is a valid position for that piece to move");
+            System.out.println("This will move the piece in a2 to a3. \n" +
+                    " (Assuming that position is a valid position for that piece to move.)");
 
             //mainBoard.setUpSampleBoard(); //TestCode
             while (!((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate()) {
