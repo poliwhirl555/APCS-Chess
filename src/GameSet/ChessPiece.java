@@ -40,6 +40,7 @@ public abstract class ChessPiece {
     }
 
     public boolean move(String enteredMove, Chessboard gameBoard) {
+        gameBoard.checkPossibleMoves();
         char columnChar = enteredMove.charAt(0);
         char rowChar = enteredMove.charAt(1);
         int endCol = Character.getNumericValue(columnChar) - 10;
@@ -52,12 +53,31 @@ public abstract class ChessPiece {
             //Add materiel point system here later
             boardLocation.move(endRow, endCol);
             syncBoardLocation(gameBoard);
+            gameBoard.checkPossibleMoves();
             gameBoard.board[currentPoint.x][currentPoint.y] = new EmptySquare();
             return true;
         } else {
             System.out.println("Invalid move, please try again!");
             return false;
         }
+    }
+
+    public boolean simulateMove(String enteredMove, Chessboard gameBoard) {
+        gameBoard.checkPossibleMoves();
+        char columnChar = enteredMove.charAt(0);
+        char rowChar = enteredMove.charAt(1);
+        int endCol = Character.getNumericValue(columnChar) - 10;
+        int endRow = Character.getNumericValue(rowChar) - 1 ;
+
+        Point currentPoint = new Point(boardLocation);
+
+        //Add materiel point system here later
+        boardLocation.move(endRow, endCol);
+        syncBoardLocation(gameBoard);
+        gameBoard.board[currentPoint.x][currentPoint.y] = new EmptySquare();
+        gameBoard.checkPossibleMoves();
+        return true;
+
     }
 
     public void printPossibleMoves() {

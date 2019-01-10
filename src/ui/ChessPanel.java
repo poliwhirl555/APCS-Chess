@@ -136,13 +136,29 @@ public class ChessPanel extends JPanel {
                 return false;
             }
 
-            if (!(moved instanceof King)) {
+            // TODO: Create function to check if the move inputted blocks the check.
+            if (!(moved instanceof King) && moved.getColour().equals(turnColour)) {
                 if (moved.getColour().equals("white") && ((King)whiteKing).inCheck(board)) {
-                    System.out.println("Invalid move, your king is in check!");
-                    return false;
+                    if (board.blocksCheckmate(pieceRow, pieceCol, (King)whiteKing, endLocation,  pieceMoved)) {
+                        moved.move(endLocation,board);
+                        ((King) whiteKing).inCheck(board);
+                        changeTurnColour();
+                        return true;
+                    } else {
+                        System.out.println("Invalid move, your king is in check!");
+                        return false;
+                    }
                 } else if (moved.getColour().equals("black") && ((King)blackKing).inCheck(board)) {
-                    System.out.println("Invalid move, your king is in check!");
-                    return false;
+                    if (board.blocksCheckmate(pieceRow, pieceCol, (King)blackKing, endLocation,  pieceMoved)) {
+                        moved.move(endLocation,board);
+                        ((King) blackKing).inCheck(board);
+                        changeTurnColour();
+                        return true;
+                    } else {
+                        System.out.println("Invalid move, your king is in check!");
+                        return false;
+                    }
+
                 }
             }
 

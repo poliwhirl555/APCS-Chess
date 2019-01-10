@@ -1,7 +1,5 @@
 package GameSet;
 
-import GameSet.Bishop;
-
 public class Chessboard {
     public ChessPiece[][] board = new ChessPiece[8][8];
 
@@ -38,6 +36,16 @@ public class Chessboard {
 
         board = defaultBoard;
 
+        setPiecePositions();
+
+    }
+
+//    public Chessboard(Chessboard b) {
+//        board = b.board;
+//        setPiecePositions();
+//    }
+
+    private void setPiecePositions() {
         for (int row = 0; row < 8; row++) {
             for (int column = 0; column < 8; column++) {
                 board[row][column].setBoardPosition(row, column);
@@ -87,6 +95,26 @@ public class Chessboard {
             }
         }
     }
+
+    public boolean blocksCheckmate(int pieceRow, int pieceCol, King checkedKing, String endLocation, String startLocation) {
+        char columnChar = endLocation.charAt(0);
+        char rowChar = endLocation.charAt(1);
+        int endCol = Character.getNumericValue(columnChar) - 10;
+        int endRow = Character.getNumericValue(rowChar) - 1 ;
+        board[pieceRow][pieceCol].simulateMove(endLocation,this);
+        checkPossibleMoves();
+        if (checkedKing.inCheck(this)) {
+            board[endRow][endCol].simulateMove(startLocation,this);
+            checkPossibleMoves();
+            return false;
+        } else {
+            board[endRow][endCol].simulateMove(startLocation,this);
+            checkPossibleMoves();
+            return true;
+        }
+
+    }
+
 
     public void setUpSampleBoard() {
         ChessPiece[][] sampleBoard = {
