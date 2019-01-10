@@ -34,7 +34,7 @@ public class ChessPanel extends JPanel {
                       BufferedImage bBishop) {
         super();
         this.board = board;
-        setKingPositions();
+        setKingVariables();
         this.turnColour = "white";
         this.boardImgWhite = boardImgWhite;
         this.boardImgBlack = boardImgBlack;
@@ -93,7 +93,7 @@ public class ChessPanel extends JPanel {
         return winner;
     }
 
-    private void setKingPositions() {
+    private void setKingVariables() {
         whiteKing = board.board[0][3];
         blackKing = board.board[7][3];
     }
@@ -101,7 +101,6 @@ public class ChessPanel extends JPanel {
     public boolean isCheckmate() {
         ((King) whiteKing).getAllOppositeAttackablePositions(board);
         ((King) blackKing).getAllOppositeAttackablePositions(board);
-        boolean isCheckmate = !((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate();
 
         if (((King)whiteKing).isCheckmate()) {
             winner = "White";
@@ -137,16 +136,22 @@ public class ChessPanel extends JPanel {
                 return false;
             }
 
+            if (!(moved instanceof King)) {
+                if (moved.getColour().equals("white") && ((King)whiteKing).inCheck(board)) {
+                    System.out.println("Invalid move, your king is in check!");
+                    return false;
+                } else if (moved.getColour().equals("black") && ((King)blackKing).inCheck(board)) {
+                    System.out.println("Invalid move, your king is in check!");
+                    return false;
+                }
+            }
+
             if (!moved.getColour().equals(turnColour)) {
                 System.out.println("Invalid selection, that piece is your opponent's colour.");
                 return false;
             }
 
             if (!moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)) {
-                //Test Line
-                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
-                //System.out.println(mainmoved.getIcon());
-                //
                 if(moved.move(endLocation,board)) {
                     changeTurnColour();
                     return true;

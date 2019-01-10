@@ -142,21 +142,6 @@ public class ChessFrame extends JFrame {
 
 
 
-
-    public void updateChessPanel(String turnColour, Chessboard b) {
-        this.chessPanel.updateInternalBoard(b);
-        this.chessPanel.updateTurnColour(turnColour);
-
-    }
-
-    public String getPanelTurnColour() {
-        return this.chessPanel.getTurnColour();
-    }
-
-
-
-
-
     public static void main(String[] args) {
         try {
             Chessboard mainBoard = new Chessboard();
@@ -182,19 +167,8 @@ public class ChessFrame extends JFrame {
             System.out.println("This will move the piece in a2 to a3. \n" +
                     " (Assuming that position is a valid position for that piece to move.)");
 
-            //mainBoard.setUpSampleBoard(); //TestCode
-            //while (!((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate()) {
-
-
-                mainBoard.checkPossibleMoves();
-                //System.out.println("J");
-//                ((King) whiteKing).getAllOppositeAttackablePositions(mainBoard);
-//                ((King) blackKing).getAllOppositeAttackablePositions(mainBoard);
-                //System.out.println("I :" + ((GameSet.King) blackKing).allOppositeAttackablePositions);
-                //System.out.println(((GameSet.King) blackKing).allOppositeAttackablePositions.contains(new Point(4,6)));
-
-                mainBoard.checkPossibleMoves();
-                System.out.println("Please enter your move: ");
+            mainBoard.checkPossibleMoves();
+            System.out.println("Please enter your move: ");
 
 
 
