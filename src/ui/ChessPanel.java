@@ -2,6 +2,7 @@ package ui;
 
 import GameSet.ChessPiece;
 import GameSet.Chessboard;
+import GameSet.EmptySquare;
 import GameSet.King;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class ChessPanel extends JPanel {
 
 
     //EFFECTS: draws the Chess Pieces onto to the panel
-    public ChessPanel(Chessboard board, String turnColour, BufferedImage boardImgWhite,
+    public ChessPanel(Chessboard board, BufferedImage boardImgWhite,
                       BufferedImage boardImgBlack, BufferedImage wKing,
                       BufferedImage bKing, BufferedImage wQueen, BufferedImage bQueen,
                       BufferedImage wKnight, BufferedImage bKnight, BufferedImage wRook,
@@ -34,7 +35,7 @@ public class ChessPanel extends JPanel {
         super();
         this.board = board;
         setKingPositions();
-        this.turnColour = turnColour;
+        this.turnColour = "white";
         this.boardImgWhite = boardImgWhite;
         this.boardImgBlack = boardImgBlack;
         pieceImgs.put("K+", wKing);
@@ -111,6 +112,71 @@ public class ChessPanel extends JPanel {
         }
 
         return false;
+    }
+
+    public boolean conductMove(String entry) {
+        String endLocation;
+        String pieceMoved;
+        int pieceRow;
+        int pieceCol;
+
+
+        pieceMoved = entry.substring(0, entry.indexOf(" "));
+        //System.out.println(pieceMoved); //Test Line
+        //System.out.println(Character.getNumericValue('a')); //Test Line
+        endLocation = entry.substring(entry.indexOf(" ") + 1);
+        pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
+        pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
+
+
+        if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
+            ChessPiece moved = board.board[pieceRow][pieceCol];
+
+            if (moved instanceof EmptySquare) {
+                System.out.println("Invalid Selection, square is empty.");
+                return false;
+            }
+
+            if (!moved.getColour().equals(turnColour)) {
+                System.out.println("Invalid selection, that piece is your opponent's colour.");
+                return false;
+            }
+
+            if (!moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)) {
+                //Test Line
+                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
+                //System.out.println(mainmoved.getIcon());
+                //
+                if(moved.move(endLocation,board)) {
+                    changeTurnColour();
+                    return true;
+                }
+
+                return false;
+                //System.out.println("confirm"); // Test Line
+
+            } else if (moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)){
+                //Test Line
+                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
+                //System.out.println(mainmoved.getIcon());
+                System.out.println("Invalid Piece, has no valid moves.");
+                return false;
+            }
+
+        } else {
+            System.out.println("Invalid Entry");
+            return false;
+        }
+
+        return false;
+    }
+
+    private void changeTurnColour() {
+        if (turnColour.equals("white")) {
+            turnColour = "black";
+        } else {
+            turnColour = "white";
+        }
     }
 
     // MODIFIES: g

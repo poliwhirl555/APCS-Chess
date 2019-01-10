@@ -23,7 +23,6 @@ public class ChessFrame extends JFrame {
     private JTextField inputLine;
     private JScrollPane consoleMirrorScroll;
     private JTextArea consoleMirror;
-    private String turnColour;
     private BufferedImage boardImgWhite;
     private BufferedImage boardImgBlack;
     private BufferedImage wKing;
@@ -43,7 +42,6 @@ public class ChessFrame extends JFrame {
     public ChessFrame(Chessboard b) throws IOException {
         super("Chess");
         this.board = b;
-        this.turnColour = "white";
         loadImages();
         initFrame();
     }
@@ -63,7 +61,7 @@ public class ChessFrame extends JFrame {
     // EFFECTS: adds components to frame
     private void addComponents() {
         JPanel container = new JPanel();
-        chessPanel = new ChessPanel(board, turnColour, boardImgWhite, boardImgBlack,
+        chessPanel = new ChessPanel(board, boardImgWhite, boardImgBlack,
                 wKing, bKing, wQueen, bQueen, wKnight, bKnight, wRook, bRook,
                 wPawn, bPawn, wBishop, bBishop);
         consoleMirror = initConsoleMirror();
@@ -97,7 +95,7 @@ public class ChessFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String entry = inputLine.getText();
-                if (conductMove(entry)) {
+                if (chessPanel.conductMove(entry)) {
                     System.out.println(entry);
                     inputLine.setText("");
                     System.out.println("Please enter your move: ");
@@ -142,15 +140,7 @@ public class ChessFrame extends JFrame {
         bBishop = ImageIO.read(new File("assets/bBishop.png"));
     }
 
-    private void changeTurnColour() {
-        if (getPanelTurnColour().equals("white")) {
-            updateChessPanel("black", this.board);
-            turnColour = "black";
-        } else {
-            updateChessPanel("white", this.board);
-            turnColour = "white";
-        }
-    }
+
 
 
     public void updateChessPanel(String turnColour, Chessboard b) {
@@ -164,62 +154,7 @@ public class ChessFrame extends JFrame {
     }
 
 
-    public boolean conductMove(String entry) {
-        String endLocation;
-        String pieceMoved;
-        int pieceRow;
-        int pieceCol;
 
-
-        pieceMoved = entry.substring(0, entry.indexOf(" "));
-        //System.out.println(pieceMoved); //Test Line
-        //System.out.println(Character.getNumericValue('a')); //Test Line
-        endLocation = entry.substring(entry.indexOf(" ") + 1);
-        pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
-        pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
-
-
-        if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
-            ChessPiece moved = board.board[pieceRow][pieceCol];
-
-            if (moved instanceof EmptySquare) {
-                System.out.println("Invalid Selection, square is empty.");
-                return false;
-            }
-
-            if (!moved.getColour().equals(turnColour)) {
-                System.out.println("Invalid selection, that piece is your opponent's colour.");
-                return false;
-            }
-
-            if (!moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)) {
-                //Test Line
-                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
-                //System.out.println(mainmoved.getIcon());
-                //
-                if(moved.move(endLocation,board)) {
-                    changeTurnColour();
-                    return true;
-                }
-
-                return false;
-                //System.out.println("confirm"); // Test Line
-
-            } else if (moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)){
-                //Test Line
-                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
-                //System.out.println(mainmoved.getIcon());
-                System.out.println("Invalid Piece, has no valid moves.");
-                return false;
-            }
-
-        } else {
-            System.out.println("Invalid Entry");
-            return false;
-        }
-
-        return false;
-    }
 
 
     public static void main(String[] args) {
