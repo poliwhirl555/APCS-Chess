@@ -136,7 +136,6 @@ public class ChessPanel extends JPanel {
                 return false;
             }
 
-            // TODO: Create function to check if the move inputted blocks the check.
             if (!(moved instanceof King) && moved.getColour().equals(turnColour)) {
                 if (moved.getColour().equals("white") && ((King)whiteKing).inCheck(board)) {
                     if (board.blocksCheckmate(pieceRow, pieceCol, (King)whiteKing, endLocation,  pieceMoved)) {
