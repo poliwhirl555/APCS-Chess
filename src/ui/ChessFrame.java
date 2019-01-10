@@ -105,11 +105,20 @@ public class ChessFrame extends JFrame {
                 board.checkPossibleMoves();
                 repaint();
                 pack();
+                isCheckmate();
             }
 
         });
 
         return inputLine;
+    }
+
+    private void isCheckmate() {
+        if (chessPanel.isCheckmate()) {
+            JOptionPane winnerDialogue = new JOptionPane();
+            String message = chessPanel.getWinner() + "has won by checkmate!";
+            winnerDialogue.showMessageDialog(this, message, "Winner",JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
 
@@ -171,23 +180,24 @@ public class ChessFrame extends JFrame {
 
 
         if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
+            ChessPiece moved = board.board[pieceRow][pieceCol];
 
-            if (board.board[pieceRow][pieceCol] instanceof EmptySquare) {
+            if (moved instanceof EmptySquare) {
                 System.out.println("Invalid Selection, square is empty.");
                 return false;
             }
 
-            if (!board.board[pieceRow][pieceCol].getColour().equals(turnColour)) {
+            if (!moved.getColour().equals(turnColour)) {
                 System.out.println("Invalid selection, that piece is your opponent's colour.");
                 return false;
             }
 
-            if (!board.board[pieceRow][pieceCol].validMoves.isEmpty() && board.board[pieceRow][pieceCol].getColour().equals(turnColour)) {
+            if (!moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)) {
                 //Test Line
-                //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-                //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
+                //System.out.println(mainmoved.getIcon());
                 //
-                if(board.board[pieceRow][pieceCol].move(endLocation,board)) {
+                if(moved.move(endLocation,board)) {
                     changeTurnColour();
                     return true;
                 }
@@ -195,10 +205,10 @@ public class ChessFrame extends JFrame {
                 return false;
                 //System.out.println("confirm"); // Test Line
 
-            } else if (board.board[pieceRow][pieceCol].validMoves.isEmpty() && board.board[pieceRow][pieceCol].getColour().equals(turnColour)){
+            } else if (moved.validMoves.isEmpty() && moved.getColour().equals(turnColour)){
                 //Test Line
-                //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-                //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
+                //System.out.println(mainmoved.getPossibleMoves(mainBoard));
+                //System.out.println(mainmoved.getIcon());
                 System.out.println("Invalid Piece, has no valid moves.");
                 return false;
             }
@@ -249,99 +259,8 @@ public class ChessFrame extends JFrame {
                 //System.out.println(((GameSet.King) blackKing).allOppositeAttackablePositions.contains(new Point(4,6)));
 
                 mainBoard.checkPossibleMoves();
+                System.out.println("Please enter your move: ");
 
-
-
-//                if (mainFrame.getPanelTurnColour().equals("white")) {
-//                    mainFrame.repaint();
-//                } else {
-//                    mainFrame.repaint();
-//                }
-
-//                String endLocation;
-//                String pieceMoved;
-//                int pieceRow;
-//                int pieceCol;
-
-                //The only possible way to break this loop is to enter a valid position
-                //while(true){
-                    mainBoard.checkPossibleMoves();
-                    System.out.println("Please enter your move: ");
-//                    inputLine.addActionListener(new ActionListener() {
-//                        @Override
-//                        public void actionPerformed(ActionEvent e) {
-//                            String entry = inputLine.getText();
-//                            if (mainFrame.conductMove(entry)) {
-//                                //consoleMirror.append(entry + "\n");
-//                                System.out.println(entry);
-//                                inputLine.setText("");
-//                                System.out.println("Please enter your move: ");
-//                            }
-//                            mainBoard.checkPossibleMoves();
-//                            mainFrame.repaint();
-//                            mainFrame.pack();
-//                        }
-//
-//                    });
-
-                    //String entry = input.nextLine();
-//                    pieceMoved = entry.substring(0, entry.indexOf(" "));
-//                    //System.out.println(pieceMoved); //Test Line
-//                    //System.out.println(Character.getNumericValue('a')); //Test Line
-//                    endLocation = entry.substring(entry.indexOf(" ") + 1);
-//                    pieceRow = Character.getNumericValue(pieceMoved.charAt(1)) -1 ;
-//                    pieceCol = Character.getNumericValue(pieceMoved.charAt(0)) - 10;
-                    //Test Line
-                    //System.out.println("T " + mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-                    //System.out.println("T " + mainBoard.board[pieceRow][pieceCol].validMoves);
-                    //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard).isEmpty());
-
-
-//                    if (pieceRow < 8 && pieceRow > -1 && pieceCol < 8 && pieceCol > -1) {
-//
-//                        if (mainBoard.board[pieceRow][pieceCol] instanceof EmptySquare) {
-//                            System.out.println("Invalid Selection, square is empty.");
-//                        }
-//
-//                        if (!mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
-//                            System.out.println("Invalid selection, that piece is your opponent's colour.");
-//                        }
-//
-//                        if (!mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)) {
-//                            //Test Line
-//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
-//                            //
-//                            if(mainBoard.board[pieceRow][pieceCol].move(endLocation,mainBoard)) {
-//                                break;
-//                            }
-//                            //System.out.println("confirm"); // Test Line
-//
-//                        } else if (mainBoard.board[pieceRow][pieceCol].validMoves.isEmpty() && mainBoard.board[pieceRow][pieceCol].getColour().equals(currentColour)){
-//                            //Test Line
-//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getPossibleMoves(mainBoard));
-//                            //System.out.println(mainBoard.board[pieceRow][pieceCol].getIcon());
-//                            System.out.println("Invalid Piece, has no valid moves.");
-//                        }
-//
-//                    } else {
-//                        System.out.println("Invalid Entry");
-//                    }
-                //}
-
-                //System.out.println("testLine");
-
-                //Keeps track of which colour the current turn is, so that the board is printed correctly, and so that you cannot move the opponenent's pieces
-//                if (mainFrame.getPanelTurnColour().equals("white")) {
-//                    mainFrame.updateChessPanel("black", mainBoard);
-//                    currentColour = "black";
-//                } else {
-//                    mainFrame.updateChessPanel("white", mainBoard);
-//                    currentColour = "white";
-//                }
-
-
-            //}
 
 
         } catch (IOException e) {

@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class ChessPanel extends JPanel {
     private static final int SQUARE_WIDTH = 60;
     private static final int BORDER_WIDTH = 60;
+    private String winner;
     private Chessboard board;
     private ChessPiece whiteKing;
     private ChessPiece blackKing;
@@ -87,16 +88,29 @@ public class ChessPanel extends JPanel {
         return this.turnColour;
     }
 
+    public String getWinner() {
+        return winner;
+    }
+
     private void setKingPositions() {
         whiteKing = board.board[0][3];
         blackKing = board.board[7][3];
     }
 
-    private boolean isCheckmate() {
+    public boolean isCheckmate() {
         ((King) whiteKing).getAllOppositeAttackablePositions(board);
         ((King) blackKing).getAllOppositeAttackablePositions(board);
-        return !((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate();
+        boolean isCheckmate = !((King)whiteKing).isCheckmate() || !((King)blackKing).isCheckmate();
 
+        if (((King)whiteKing).isCheckmate()) {
+            winner = "White";
+            return true;
+        } else if (((King)blackKing).isCheckmate()) {
+            winner = "Black";
+            return true;
+        }
+
+        return false;
     }
 
     // MODIFIES: g

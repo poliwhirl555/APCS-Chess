@@ -68,7 +68,7 @@ public class King extends ChessPiece {
         }
 
         //Check for checkmate, except that isn't implemented yet
-        if (validPositions.isEmpty() && inCheck ) {
+        if (validPositions.isEmpty() && inCheck) {
             checkmate = true;
         }
 
@@ -83,7 +83,7 @@ public class King extends ChessPiece {
         return validPositions;
     }
 
-    public boolean checkIfInCheck(Chessboard gameBoard) {
+    public boolean inCheck(Chessboard gameBoard) {
         inCheck = false;
         for (ChessPiece[] row : gameBoard.board) {
             for (ChessPiece i : row) {
